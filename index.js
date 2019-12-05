@@ -18,11 +18,15 @@ const sequelize = new Sequelize(
   }
 );
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("working");
-  })
-  .catch(err => {
-    console.log("not working" + err);
-  });
+(async () => {
+  await sequelize
+    .authenticate()
+    .then(() => {
+      console.log("working");
+    })
+    .catch(err => {
+      console.log("not working" + err);
+    });
+
+  await sequelize.close();
+})();
