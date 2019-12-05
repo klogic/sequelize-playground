@@ -1,5 +1,6 @@
 require("dotenv").config();
 const Sequelize = require("sequelize");
+const { create } = require("./libs");
 
 // Option 1: Passing parameters separately
 const sequelize = new Sequelize(
@@ -40,26 +41,26 @@ const sequelize = new Sequelize(
     },
     { timestamp: true }
   );
-  // await User.sync({ force: true }).then(() => {
-  //   return User.create({
-  //     firstName: "John",
-  //     lastName: "Hancock"
-  //   });
-  // });
+  await User.sync({ force: true }).then(() => {
+    return create(User, {
+      firstName: "John",
+      lastName: "Hancock"
+    });
+  });
 
-  // Create a new user
-  // await User.create({ firstName: "Jane", lastName: "Doe" }).then(jane => {
-  //   console.log("Jane's auto-generated ID:", jane.id);
-  // });
+  //Create a new user
+  await create(User, { firstName: "Jane", lastName: "Doe" }).then(jane => {
+    console.log("Jane's auto-generated ID:", jane.id);
+  });
 
   // Delete everyone named "Jane"
-  // await User.destroy({
-  //   where: {
-  //     firstName: "Jane"
-  //   }
-  // }).then(() => {
-  //   console.log("Done");
-  // });
+  await User.destroy({
+    where: {
+      firstName: "Jane"
+    }
+  }).then(() => {
+    console.log("Done");
+  });
 
   // Change everyone without a last name to "Doe"
   User.update(
