@@ -3,3 +3,4 @@ node_modules
 .env/.blackbox/pubring.gpg~
 /.blackbox/pubring.kbx~
 /.blackbox/secring.gpg
+/.env
