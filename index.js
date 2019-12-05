@@ -27,6 +27,25 @@ const sequelize = new Sequelize(
     .catch(err => {
       console.log("not working" + err);
     });
+  const User = sequelize.define(
+    "user",
+    {
+      firstName: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      lastName: {
+        type: Sequelize.STRING
+      }
+    },
+    { timestamp: true }
+  );
+  await User.sync({ force: true }).then(() => {
+    return User.create({
+      firstName: "John",
+      lastName: "Hancock"
+    });
+  });
 
   await sequelize.close();
 })();
