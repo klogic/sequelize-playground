@@ -40,11 +40,41 @@ const sequelize = new Sequelize(
     },
     { timestamp: true }
   );
-  await User.sync({ force: true }).then(() => {
-    return User.create({
-      firstName: "John",
-      lastName: "Hancock"
-    });
+  // await User.sync({ force: true }).then(() => {
+  //   return User.create({
+  //     firstName: "John",
+  //     lastName: "Hancock"
+  //   });
+  // });
+
+  // Create a new user
+  // await User.create({ firstName: "Jane", lastName: "Doe" }).then(jane => {
+  //   console.log("Jane's auto-generated ID:", jane.id);
+  // });
+
+  // Delete everyone named "Jane"
+  // await User.destroy({
+  //   where: {
+  //     firstName: "Jane"
+  //   }
+  // }).then(() => {
+  //   console.log("Done");
+  // });
+
+  // Change everyone without a last name to "Doe"
+  User.update(
+    { lastName: "Doe" },
+    {
+      where: {
+        lastName: null
+      }
+    }
+  ).then(() => {
+    console.log("Done");
+  });
+
+  await User.findAll().then(users => {
+    console.log("All users:", JSON.stringify(users, null, 4));
   });
 
   await sequelize.close();
